@@ -1,0 +1,13 @@
+{
+  "C_Cpp.errorSquiggles": "Enabled",
+  "files.associations": {
+    "*.ejs": "html",
+    "*.jsx": "javascriptreact",
+    "*.js": "javascriptreact",
+    "cstddef": "cpp",
+    "xtr1common": "cpp",
+    "iostream": "cpp",
+    "iosfwd": "cpp",
+    "*.tcc": "cpp"
+  }
+}
