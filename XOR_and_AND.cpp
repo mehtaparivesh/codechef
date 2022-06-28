@@ -75,5 +75,30 @@ void file_i_o()
 int main(int argc, char const *argv[])
 {
     file_i_o();
+    ll t;
+    cin >> t;
+    while (t--)
+    {
+        ll n;
+        cin >> n;
+        vi v(n);
+        for (auto &it : v)
+            cin >> it;
+
+        vi bits(32, 0);
+        ll ans = 0;
+        for (ll i = v.size() - 1; i >= 0; i--)
+        {
+            ll msb = 0;
+            while (v[i])
+            {
+                msb++;
+                v[i] = v[i] >> 1;
+            }
+            ans += bits[msb];
+            bits[msb]++;
+        }
+        cout << ans << endl;
+    }
     return 0;
 }
