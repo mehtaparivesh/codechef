@@ -1,7 +1,4 @@
-YES
-wrold
-YES
-lohle
-YES
-acbacba
-NO
+2
+0
+4
+2
