@@ -8,6 +8,7 @@
     "xtr1common": "cpp",
     "iostream": "cpp",
     "iosfwd": "cpp",
-    "*.tcc": "cpp"
+    "*.tcc": "cpp",
+    "cmath": "cpp"
   }
 }
