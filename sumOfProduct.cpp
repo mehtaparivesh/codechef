@@ -81,20 +81,26 @@ int main(int argc, char const *argv[])
     {
         ll n;
         cin >> n;
-        vi a(n), b(n);
-        for (auto &it : a)
+        vi v(n);
+        for (auto &it : v)
             cin >> it;
-        for (auto &it : b)
-            cin >> it;
-        sort(a.begin(), a.end());
-        sort(b.begin(), b.end());
-        ll ans = LONG_MAX;
-        ll end = n - 1;
-        for (int start = n / 2; start < n; start++)
+        ll count = 0, ans = 0;
+        v.push_back(0);
+
+        for (auto it : v)
         {
-            ans = min(ans, a[start] + b[end]);
-            end--;
+
+            if (it == 0)
+            {
+                ans += ((count * (count + 1)) / 2);
+                count = 0;
+            }
+            else
+            {
+                count++;
+            }
         }
+
         cout << ans << endl;
     }
     return 0;

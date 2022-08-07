@@ -11,6 +11,7 @@
     "*.tcc": "cpp",
     "cmath": "cpp",
     "numeric": "cpp",
-    "vector": "cpp"
+    "vector": "cpp",
+    "string_view": "cpp"
   }
 }

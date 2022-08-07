@@ -75,27 +75,35 @@ void file_i_o()
 int main(int argc, char const *argv[])
 {
     file_i_o();
+
     ll t;
     cin >> t;
     while (t--)
     {
+
         ll n;
         cin >> n;
-        vi a(n), b(n);
-        for (auto &it : a)
-            cin >> it;
-        for (auto &it : b)
-            cin >> it;
-        sort(a.begin(), a.end());
-        sort(b.begin(), b.end());
-        ll ans = LONG_MAX;
-        ll end = n - 1;
-        for (int start = n / 2; start < n; start++)
+        deque<ll> dq;
+        dq.push_back(1ll);
+        loop(i, 2, n)
         {
-            ans = min(ans, a[start] + b[end]);
-            end--;
+
+            if (i % 2 == 0)
+            {
+                dq.push_back(i);
+            }
+            else
+            {
+                dq.push_front(i);
+            }
         }
-        cout << ans << endl;
+
+        for (auto it : dq)
+        {
+
+            cout << it << " ";
+        }
+        cout << endl;
     }
     return 0;
 }

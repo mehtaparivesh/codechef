@@ -75,27 +75,33 @@ void file_i_o()
 int main(int argc, char const *argv[])
 {
     file_i_o();
+
     ll t;
     cin >> t;
     while (t--)
     {
-        ll n;
-        cin >> n;
-        vi a(n), b(n);
-        for (auto &it : a)
-            cin >> it;
-        for (auto &it : b)
-            cin >> it;
-        sort(a.begin(), a.end());
-        sort(b.begin(), b.end());
-        ll ans = LONG_MAX;
-        ll end = n - 1;
-        for (int start = n / 2; start < n; start++)
+        /* code */
+        ll n, m;
+        cin >> n >> m;
+
+        ll i = 0;
+        ll ans = INT_MIN, prev = INT_MAX;
+        ll a = n, b = n * m / n;
+        while (m % (n + i) < prev)
         {
-            ans = min(ans, a[start] + b[end]);
-            end--;
+
+            if (ans < ((n + i) * (m / (n + i)) - (n + i)))
+            {
+                ans = ((n + i) * (m / (n + i)) - (n + i));
+                a = n + i;
+                b = ((n + i) * (m / (n + i)));
+            }
+            prev = m % (n + i);
+            i++;
         }
-        cout << ans << endl;
+
+        cout << a << " " << b << endl;
     }
+
     return 0;
 }

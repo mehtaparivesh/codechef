@@ -71,31 +71,80 @@ void file_i_o()
     freopen("output.txt", "w", stdout);
 #endif
 }
+bool solve()
+{
+    ll n;
+    cin >> n;
+    vi v(n);
+    for (auto &it : v)
+        cin >> it;
 
+    if (is_sorted(v.begin(), v.end()))
+        return true;
+    vector<pii> a;
+
+    loop(i, 0, n - 1)
+    {
+
+        a.push_back({v[i], i});
+    }
+
+    sort(a.begin(), a.end());
+
+    bool flag = true;
+    ll toskip = INT_MIN;
+
+    for (int i = n - 1; i >= 1; i--)
+    { 
+        if (toskip != INT_MIN and a[i].ff == toskip)
+        {
+            // cout << "foundToSkip at index " << i << endl;
+            continue;
+        }
+
+        if (a[i - 1].ss > a[i].ss)
+        {
+            // cout << "error found at index " << i << endl;
+            if (toskip == INT_MIN)
+            {
+
+                toskip = a[i - 1].ff;
+                // cout << "Setting toskip " << a[i - 1].ff << endl;
+                continue;
+            }
+
+            vi x;
+            for (int j = 0; j < (toskip == INT_MIN ? i : i + 1); j++)
+            {
+                x.push_back(a[j].ss);
+            }
+            return is_sorted(x.begin(), x.end());
+        }
+    }
+
+    ll ch = -1;
+
+    loop(i, 0, a.size() - 1)
+    {
+
+        if (a[i + 1].ff == toskip)
+        {
+            ch = a[i].second;
+        }
+    }
+
+    return true;
+}
 int main(int argc, char const *argv[])
 {
     file_i_o();
+
     ll t;
     cin >> t;
     while (t--)
     {
-        ll n;
-        cin >> n;
-        vi a(n), b(n);
-        for (auto &it : a)
-            cin >> it;
-        for (auto &it : b)
-            cin >> it;
-        sort(a.begin(), a.end());
-        sort(b.begin(), b.end());
-        ll ans = LONG_MAX;
-        ll end = n - 1;
-        for (int start = n / 2; start < n; start++)
-        {
-            ans = min(ans, a[start] + b[end]);
-            end--;
-        }
-        cout << ans << endl;
+        bool f = solve();
+        cout << (f ? "YES" : "NO") << endl;
     }
     return 0;
 }
