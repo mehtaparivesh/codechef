@@ -75,21 +75,5 @@ void file_i_o()
 int main(int argc, char const *argv[])
 {
     file_i_o();
-
-    vector<vi> v = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-    vector<vi> ans(v[0].size(), vi(v.size()));
-    loop(i, 0, v.size() - 1)
-    {
-        loop(j, 0, v[0].size() - 1)
-
-        {
-            ans[j][i] = v[i][j];
-        }
-    }
-
-    for (auto &it : ans)
-    {
-        logarr(it, 0, it.size() - 1);
-    }
     return 0;
 }
