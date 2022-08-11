@@ -75,5 +75,27 @@ void file_i_o()
 int main(int argc, char const *argv[])
 {
     file_i_o();
+    ll t;
+    cin >> t;
+    while (t--)
+    {
+        ll n;
+        cin >> n;
+        vi v(n);
+        for (int i = 0; i < v.size(); i += 2)
+        {
+            v[i] = n;
+            n--;
+        }
+
+        for (int i = 1; i < v.size(); i += 2)
+        {
+            v[i] = n;
+            n--;
+        }
+
+        logarr(v, 0, v.size() - 1);
+    }
+
     return 0;
 }
