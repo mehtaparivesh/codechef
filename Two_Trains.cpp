@@ -75,5 +75,23 @@ void file_i_o()
 int main(int argc, char const *argv[])
 {
     file_i_o();
+    ll t;
+    cin >> t;
+    while (t--)
+    {
+        /* code */
+        ll n;
+        cin >> n;
+        vi v(n-1);
+        ll sum = 0;
+        for (auto &it : v)
+        {
+            cin >> it;
+            sum += it;
+        }
+
+        cout << sum + *max_element(v.begin(), v.end()) << endl;
+        }
+
     return 0;
 }
