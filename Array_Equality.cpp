@@ -72,8 +72,36 @@ void file_i_o()
 #endif
 }
 
+bool solve()
+{
+    ll n;
+    cin >> n;
+    vi v(n);
+    ump<ll, ll> m;
+    for (auto &it : v)
+    {
+        cin >> it;
+        m[it]++;
+    }
+
+    for (auto [k, o] : m)
+        if (o > (v.size() + 1) / 2)
+            return false;
+
+    return true;
+}
+
 int main(int argc, char const *argv[])
 {
     file_i_o();
+    ll t;
+    cin >> t;
+    while (t--)
+    {
+        if (solve())
+            cout << "YES" << endl;
+        else
+            cout << "NO" << endl;
+    }
     return 0;
 }
