@@ -18,8 +18,8 @@ using namespace std;
 #define ff first
 #define ss second
 #define mid(l, r) (l + (r - l) / 2)
-#define loop(i, a, b) for (ll i = (a); i <= (b); i++)
-#define looprev(i, a, b) for (ll i = (a); i >= (b); i--)
+#define loop(i, a, b) for (int i = (a); i <= (b); i++)
+#define looprev(i, a, b) for (int i = (a); i >= (b); i--)
 #define logarr(arr, a, b)            \
     for (int z = (a); z <= (b); z++) \
         cout << (arr[z]) << " ";     \
@@ -74,24 +74,36 @@ void file_i_o()
 
 int main(int argc, char const *argv[])
 {
-    // file_i_o();
-
-    ll n;
-    cout << "ENTER THE NUMBER OF STUDENTS " << endl;
-    cin >> n;
-    vi marks(n);
-    loop(i, 0, n - 1)
+    file_i_o();
+    ll t;
+    cin >> t;
+    while (t--)
     {
-
-        cout << "ENTER THE MARKS OF STUDENT " << i + 1 << endl;
-
-        cin >> marks[i];
-    }
-    loop(i, 0, n - 1)
-    {
-
-        cout << "MARKS OF STUDENT " << i + 1 << " = ";
-        cout << marks[i] << endl;
+        ll n;
+        cin >> n;
+        vi v(n);
+        for (auto &it : v)
+            cin >> it;
+        for (int i = n - 1; i >= 1; i--)
+        {
+            if (v[i] > 0)
+            {
+                v[i - 1] -= (v[i] / 2);
+                v[i] = v[i] % 2;
+            }
+        }
+        // logarr(v, 0, v.size() - 1);
+        for (int i = n - 1; i > 0; i--)
+        {
+            if (v[i] > 0 and v[i - 1] > 0)
+            {
+                v[i] -= 2;
+                v[i - 1] -= 1;
+            }
+        }
+        for (auto &it : v)
+            it = labs(it);
+        cout << accumulate(v.begin(), v.end(), 0ll) << endl;
     }
     return 0;
 }

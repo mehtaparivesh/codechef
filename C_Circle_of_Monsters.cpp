@@ -18,8 +18,8 @@ using namespace std;
 #define ff first
 #define ss second
 #define mid(l, r) (l + (r - l) / 2)
-#define loop(i, a, b) for (ll i = (a); i <= (b); i++)
-#define looprev(i, a, b) for (ll i = (a); i >= (b); i--)
+#define loop(i, a, b) for (int i = (a); i <= (b); i++)
+#define looprev(i, a, b) for (int i = (a); i >= (b); i--)
 #define logarr(arr, a, b)            \
     for (int z = (a); z <= (b); z++) \
         cout << (arr[z]) << " ";     \
@@ -74,24 +74,33 @@ void file_i_o()
 
 int main(int argc, char const *argv[])
 {
-    // file_i_o();
-
-    ll n;
-    cout << "ENTER THE NUMBER OF STUDENTS " << endl;
-    cin >> n;
-    vi marks(n);
-    loop(i, 0, n - 1)
+    file_i_o();
+    ll t;
+    cin >> t;
+    while (t--)
     {
+        ll n;
+        cin >> n;
+        vi a(n), b(n);
+        loop(i, 0, n - 1)
+        {
+            cin >> a[i] >> b[i];
+        }
 
-        cout << "ENTER THE MARKS OF STUDENT " << i + 1 << endl;
+        ll total = 0, ans = inf;
+        loop(i, 0, n - 1)
 
-        cin >> marks[i];
-    }
-    loop(i, 0, n - 1)
-    {
+        {
+            ll j = (i + 1) % n;
+            total += max(0ll, a[j] - b[i]);
+        }
 
-        cout << "MARKS OF STUDENT " << i + 1 << " = ";
-        cout << marks[i] << endl;
+        loop(i, 0, n - 1)
+        {
+            ll j = (i + 1) % n;
+            ans = min(ans, total - max(0ll, a[j] - b[i]) + a[j]);
+        }
+        cout << ans << endl;
     }
     return 0;
 }
