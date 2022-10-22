@@ -75,34 +75,7 @@ void file_i_o()
 int main(int argc, char const *argv[])
 {
     file_i_o();
-    ll t;
-    cin >> t;
-    while (t--)
-    {
-        ll n;
-        cin >> n;
-        vi v(n);
-        for (auto &it : v)
-            cin >> it;
-        for (int i = n - 1; i >= 1; i--)
-        {
-            if (v[i] > 0)
-            {
-                v[i - 1] -= (v[i] / 2);
-                v[i] = v[i] % 2;
-            }
-        }
-        for (int i = n - 1; i > 0; i--)
-        {
-            if (v[i] > 0 and v[i - 1] > 0)
-            {
-                v[i] -= 2;
-                v[i - 1] -= 1;
-            }
-        }
-        for (auto &it : v)
-            it = labs(it);
-        cout << accumulate(v.begin(), v.end(), 0ll) << endl;
-    }
     return 0;
 }
+
+

@@ -1,97 +1,74 @@
-#include <bits/stdc++.h>
-//#include<ext/pb_ds/assoc_container.hpp>
-// using namespace __gnu_pbds;
-using namespace std;
-#define ll long long int
-#define ld long double
-#define mod 1000000007
-#define inf 1e18
-#define endl "\n"
-#define pb emplace_back
-#define vi vector<ll>
-#define vs vector<string>
-#define pii pair<ll, ll>
-#define ump unordered_map
-#define mp map
-#define pq_max priority_queue<ll>
-#define pq_min priority_queue<ll, vi, greater<ll>>
-#define ff first
-#define ss second
-#define mid(l, r) (l + (r - l) / 2)
-#define loop(i, a, b) for (ll i = (a); i <= (b); i++)
-#define looprev(i, a, b) for (ll i = (a); i >= (b); i--)
-#define logarr(arr, a, b)            \
-    for (int z = (a); z <= (b); z++) \
-        cout << (arr[z]) << " ";     \
-    cout << endl;
-
-// typedef tree<ll, null_type, less<ll>, rb_tree_tag, tree_order_statistics_node_update> pbds;
-ll power(long long x, ll y, ll p)
+#define ll long long
+#define vvi vector<vector<int>>
+#define vi vector<long long>
+class Solution
 {
-    ll res = 1;
-    x = x % p;
-    if (x == 0)
-        return 0;
-    while (y > 0)
+public:
+    vector<vector<int>> buildMatrix(int k, vvi &rc, vvi &cc)
     {
-        if (y & 1)
-            res = (res * x) % p;
-        y = y >> 1;
-        x = (x * x) % p;
+        vvi ans(k, vector<int>(k, 0));
+        vi colIndexes(402, 0);
+        vi rowIndexes(402, 0);
+        vector<ll> rs(k + 1), cols(k + 1);
+        int sizeofCols = cc.size();
+        int sizeOfMatrix = rc.size();
+        vector<vector<long long>> rg(k + 1), cgraph(k + 1);
+        queue<ll> colqueue, rowqueue;
+        for (long long i = 0; i < sizeofCols; i++)
+        {
+            colIndexes[cc[i][1]]++;
+            cgraph[cc[i][0]].push_back(cc[i][1]);
+        }
+        for (long long i = 0; i < sizeOfMatrix; i++)
+        {
+            rowIndexes[rc[i][1]]++;
+            rg[rc[i][0]].push_back(rc[i][1]);
+        }
+        for (ll i = 1; i <= k; i++)
+        {
+            if (rowIndexes[i] == 0)
+                rowqueue.push(i);
+            if (colIndexes[i] == 0)
+                colqueue.push(i);
+        }
+        ll count = 0;
+        while (colqueue.size()>0)
+        {
+            ll i = colqueue.front();
+            colqueue.pop();
+            cols[i] = count++;
+            for (auto j = cgraph[i].begin(); j != cgraph[i].end(); j++)
+            {
+                --colIndexes[*j];
+                if (colIndexes[*j] == 0)
+                {
+                    colqueue.push(*j);
+                }
+            }
+        }
+        if (count != k and true)
+            return {};
+        count = 0;
+        while (rowqueue.size()>0)
+        {
+            int i = rowqueue.front();
+            rowqueue.pop();
+            rs[i] = count++;
+            for (auto j = rg[i].begin(); j != rg[i].end(); j++)
+            {
+                --rowIndexes[*j];
+                if (rowIndexes[*j] == 0)
+                {
+                    rowqueue.push(*j);
+                }
+            }
+        }
+        if (count != k)
+            return {};
+        for (ll i = 1; i <= k; i++)
+        {
+            ans[rs[i]][cols[i]] = i;
+        }
+        return ans;
     }
-    return res;
-}
-
-long long modInverse(unsigned long long n,
-                     int p)
-{
-    return power(n, p - 2, p);
-}
-
-unsigned long long nCrModPFermat(unsigned long long n,
-                                 int r, int p)
-{
-    if (n < r)
-        return 0;
-    if (r == 0)
-        return 1;
-    long long fac[n + 1];
-    fac[0] = 1;
-    for (int i = 1; i <= n; i++)
-        fac[i] = (fac[i - 1] * i) % p;
-    return (fac[n] * modInverse(fac[r], p) % p * modInverse(fac[n - r], p) % p) % p;
-}
-void file_i_o()
-{
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-#ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-#endif
-}
-
-int main(int argc, char const *argv[])
-{
-    // file_i_o();
-
-    ll n;
-    cout << "ENTER THE NUMBER OF STUDENTS " << endl;
-    cin >> n;
-    vi marks(n);
-    loop(i, 0, n - 1)
-    {
-
-        cout << "ENTER THE MARKS OF STUDENT " << i + 1 << endl;
-
-        cin >> marks[i];
-    }
-    loop(i, 0, n - 1)
-    {
-
-        cout << "MARKS OF STUDENT " << i + 1 << " = ";
-        cout << marks[i] << endl;
-    }
-    return 0;
-}
+};

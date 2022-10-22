@@ -79,30 +79,55 @@ int main(int argc, char const *argv[])
     cin >> t;
     while (t--)
     {
-        ll n;
-        cin >> n;
+        ll n, k;
+        cin >> n >> k;
         vi v(n);
+        set<ll> s;
+        for (int i = 1; i <= 2 * n; i++)
+        {
+            s.insert(i);
+        }
         for (auto &it : v)
+        {
             cin >> it;
-        for (int i = n - 1; i >= 1; i--)
-        {
-            if (v[i] > 0)
-            {
-                v[i - 1] -= (v[i] / 2);
-                v[i] = v[i] % 2;
-            }
+            if (s.find(it) != s.end())
+                s.erase(it);
         }
-        for (int i = n - 1; i > 0; i--)
+
+        sort(v.begin(), v.end());
+        ll m = v.back();
+        ll ans1 = 0;
+        vi temp;
+        for (auto it : s)
         {
-            if (v[i] > 0 and v[i - 1] > 0)
-            {
-                v[i] -= 2;
-                v[i - 1] -= 1;
-            }
+            temp.push_back(it);
         }
-        for (auto &it : v)
-            it = labs(it);
-        cout << accumulate(v.begin(), v.end(), 0ll) << endl;
+        vi pre;
+        ll sum = 0;
+        for (int i = 0; i < temp.size(); i++)
+        {
+            sum += temp[i];
+            pre.push_back(sum);
+        }
+
+        if (v.back() == 2 * n)
+        {
+            cout << 2 * n * k - pre[k - 1] << endl;
+        }
+        else
+        {
+
+            ll ub = upper_bound(temp.begin(), temp.end(), v.back()) - temp.begin();
+            ub = min(ub, k);
+            ll ans1 = 0, ans2 = 2 * n * (k - 1) - pre[k - 2];
+
+            if (ub > 0)
+            {
+                ans1 = v.back() * ub - pre[ub - 1];
+            }
+
+            cout << max(ans1, ans2) << endl;
+        }
     }
     return 0;
 }
