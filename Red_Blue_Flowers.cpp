@@ -114,9 +114,9 @@ int main(int argc, char const *argv[])
                 ll val = -1;
                 if (dp[j] != -1)
                 {
-                    val = blue[i];
+                    val = dp[j] + blue[i];
                 }
-                if (j - red[i] > 0 and dp[j - red[i]] != -1)
+                if (j - red[i] >= 0 and dp[j - red[i]] != -1)
                 {
                     val = max(val, dp[j - red[i]]);
                 }
@@ -124,7 +124,7 @@ int main(int argc, char const *argv[])
                 dp[j] = val;
             }
         }
-        ll ans = -1;
+        ll ans = 0;
         loop(i, 0, 20004)
         {
             if (dp[i] != -1)
