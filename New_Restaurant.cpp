@@ -75,19 +75,35 @@ void file_i_o()
 int main(int argc, char const *argv[])
 {
     file_i_o();
-
+    vector<vi> dp(1001, vi(1001, 0));
+    dp[0][0] = 1;
+    loop(day, 1, 1000)
+    {
+        loop(dishes, 1, day)
+        {
+            dp[day][dishes] = (dp[day - 1][dishes - 1] + dp[day - 1][dishes] * dishes) % mod;
+        }
+    }
     ll t;
+
     cin >> t;
     while (t--)
     {
         ll n, m, k;
         cin >> n >> m >> k;
+        if (k > m)
+            k = m;
+        else if (k > n)
+            k = n;
 
-        ll ans = 0;
-
-        ans = nCrModPFermat(m, k, mod) * power(k, n, mod);
-
-        cout << ans << endl;
+        ll fact = 1;
+        ll total = 0;
+        loop(dishes, 1, k)
+        {
+            fact = (fact * (m - dishes + 1)) % mod;
+            total = (fact * dp[n][dishes] + total) % mod;
+        }
+        cout << total << endl;
     }
 
     return 0ll;
