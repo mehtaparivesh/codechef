@@ -75,5 +75,64 @@ void file_i_o()
 int main(int argc, char const *argv[])
 {
     file_i_o();
+    ll n, q;
+    cin >> n >> q;
+    vi v(n);
+    for (auto &it : v)
+        cin >> it;
+
+    vector<vi> setBits(n);
+
+    loop(i, 0, n - 1)
+    {
+        ll it = v[i];
+        vi temp(32, 0);
+        ll b = 0;
+        while (it)
+        {
+            if (it & 1)
+                temp[b]++;
+            it = it >> 1;
+            b++;
+        }
+        setBits[i] = temp;
+    }
+    loop(i, 1, n - 1)
+    {
+
+        loop(j, 0, 30)
+        {
+            setBits[i][j] += setBits[i - 1][j];
+        }
+    }
+
+    // for (auto it : setBits)
+    // {
+    //     for (auto i : it)
+    //     {
+    //         cout << i << " ";
+    //     }
+    //     cout << endl;
+    // }
+
+    while (q--)
+    {
+        ll l, r;
+        cin >> l >> r;
+        l--;
+        r--;
+        ll x = 0;
+        ll len = r - l + 1;
+        loop(j, 0, 30)
+        {
+            ll set = setBits[r][j] - (l - 1 >= 0 ? setBits[l - 1][j] : 0ll);
+            ll notSet = len - set;
+            if (set < notSet)
+            {
+                x = x | (1 << j);
+            }
+        }
+        cout << x << endl;
+    }
     return 0;
 }
