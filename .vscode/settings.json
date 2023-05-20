@@ -12,6 +12,7 @@
     "cmath": "cpp",
     "numeric": "cpp",
     "vector": "cpp",
-    "string_view": "cpp"
+    "string_view": "cpp",
+    "queue": "cpp"
   }
 }

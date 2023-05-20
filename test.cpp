@@ -1,47 +1,21 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
+void file_i_o()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+#endif
+}
 int main(int argc, char const *argv[])
 {
-    int n, m;
-    cin >> n >> m;
-    vector<vector<int>> v(n);
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < m; j++)
-        {
-            int x;
-            cin >> x;
-            v[i].push_back(x);
-        }
-    }
-    vector<vector<bool>> vis(n, vector<bool>(m, false));
 
-    int a, b, c, d;
-    cin >> a >> b >> c >> d;
-    queue<vector<int>> q;
-    q.push({a, b, 0});
-    int ans = -1;
-    while (q.size())
-    {
-
-        int i = q.front()[0];
-        int j = q.front()[1];
-        int steps = q.front()[2];
-        q.pop();
-        if (i >= n or i < 0 or j >= m or j < 0 or vis[i][j] or v[i][j] == 0)
-            continue;
-        vis[i][j] = true;
-
-        if (i == c and j == d)
-        {
-            ans = steps;
-            break;
-        }
-        q.push({i + 1, j, steps + 1});
-        q.push({i - 1, j, steps + 1});
-        q.push({i, j + 1, steps + 1});
-        q.push({i, j - 1, steps + 1});
-    }
-    cout << ans << endl;
+    file_i_o();
+    int n;
+    cin >> n;
+    cout << n << endl;
     return 0;
 }

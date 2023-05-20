@@ -73,7 +73,6 @@ void file_i_o()
 }
 ll solve()
 {
-    return 0;
 }
 
 int main(int argc, char const *argv[])
