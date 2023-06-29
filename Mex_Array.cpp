@@ -71,22 +71,59 @@ void file_i_o()
     freopen("output.txt", "w", stdout);
 #endif
 }
-ll solve()
+void solve()
 {
-    ll n, m;
-    cin >> n >> m;
-    vi v(m);
-    ll sum = 0;
-    ll total = (n * (n + 1)) / 2;
+
+    ll n;
+    cin >> n;
+    vi v(n);
+    map<ll, ll> m;
     for (auto &it : v)
     {
         cin >> it;
-        sum += it;
+        m[it]++;
     }
+    ll minCount = INT_MAX;
+    priority_queue<pair<ll, ll>> pq;
+    for (int i = 0; i < 200001; i++)
+    {
+        if (m.find(i) != m.end())
+        {
+            minCount = min(minCount, m[i]);
+            if (minCount == 0)
+            {
+                break;
+            }
+            pq.push({i, minCount});
+        }
+        else
+            break;
+    }
+    vi ans;
 
-    return total - sum;
+    int x = 0, pc = 0;
+    while (pq.size())
+    {
+        auto it = pq.top();
+        pq.pop();
+        ll elem = it.first;
+        ll count = it.second;
+        // cout << "elem " << elem
+        //      << " count " << count -x<< "x " << x << endl;
+        for (int i = 0; i < count - x; i++)
+        {
+            // cout << "adding " << elem + 1 << endl;
+            ans.push_back(elem + 1);
+            pc += (elem + 1);
+        }
+        if (count - x)
+            x += count -x;
+    }
+    loop(i, 0, n - pc - 1)
+        ans.push_back(0);
+    cout << ans.size() << endl;
+    logarr(ans, 0, ans.size() - 1);
 }
-
 int main(int argc, char const *argv[])
 {
     file_i_o();
@@ -95,7 +132,7 @@ int main(int argc, char const *argv[])
     cin >> t;
     while (t--)
     {
-        cout << solve() << endl;
+        solve();
     }
     return 0;
 }

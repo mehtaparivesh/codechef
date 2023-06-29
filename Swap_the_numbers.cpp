@@ -71,22 +71,31 @@ void file_i_o()
     freopen("output.txt", "w", stdout);
 #endif
 }
-ll solve()
+void solve()
 {
-    ll n, m;
-    cin >> n >> m;
-    vi v(m);
-    ll sum = 0;
-    ll total = (n * (n + 1)) / 2;
+    ll n, k;
+    cin >> n >> k;
+    vi v(n);
     for (auto &it : v)
-    {
         cin >> it;
-        sum += it;
+
+    set<pair<ll, ll>> s;
+    loop(i, k, n - 1) s.insert({v[i], i});
+    for (int i = 0; i < n - k; i++)
+    {
+        auto f = s.begin()->first;
+        if (f < v[i])
+        {
+            swap(v[i], v[s.begin()->second]);
+        }
+
+        auto it = s.lower_bound({0, i + k});
+
+        s.erase(it);
     }
 
-    return total - sum;
+    logarr(v, 0, n - 1);
 }
-
 int main(int argc, char const *argv[])
 {
     file_i_o();
@@ -94,8 +103,6 @@ int main(int argc, char const *argv[])
     ll t;
     cin >> t;
     while (t--)
-    {
-        cout << solve() << endl;
-    }
+        solve();
     return 0;
 }
